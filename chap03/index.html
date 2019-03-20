@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>GoogleMap</title>
+  <style>
+    #map {
+      height: 100%;
+    }
+
+    #input-box {
+      width: 80%;
+      height: 40px;
+      font-size: 16px;
+      margin-top: 20px;
+      border: 1px solid #ddd;
+      border-radius: 3px;
+    }
+
+    #result-view {
+      width: 90%;
+      min-height: 80px;
+      font-size: 16px;
+      background: #fff;
+      margin-bottom: 20px;
+      color: #333;
+      border: 1px solid #ddd;
+      border-radius: 3px;
+    }
+
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <input id="input-box" class="controls" type="text" placeholder="キーワード検索" />
+  <div id="map"></div>
+  <script>
+    function initMap() {
+      // 最初に表示したい場所の緯度経度(例：東京駅)
+      var initialPlace = { lat: 35.681236, lng: 139.767125 }
+
+      // 地図の設定
+      var map = new google.maps.Map(document.getElementById('map'), {
+        center: initialPlace,
+        zoom: 17,
+        // disableDefaultUI: true
+      })
+
+      // マーカーの設定
+      var marker = new google.maps.Marker({
+        position: initialPlace,
+        map: map,
+        draggable: true
+      })
+
+      // 検索窓の設置
+      var searchBox = document.getElementById('input-box')
+      map.controls[google.maps.ControlPosition.TOP_CENTER].push(searchBox)
+
+      // 住所や検索結果を表示するテキストの設置
+      var resultView = document.getElementById('result-view')
+      map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(resultView)
+
+      // マーカーをドラッグアンドドロップで移動した時のイベント
+      google.maps.event.addListener(marker, 'dragend', function () {
+        lat = marker.getPosition().lat()
+        lng = marker.getPosition().lng()
+        console.log("latitude: " + lat)
+        console.log("longitude: " + lng)
+      })
+
+      // 検索窓にキーワードを入力した時のイベント
+      searchBox.addEventListener('change', function () {
+        var input = document.getElementById('input-box').value
+        console.log(input)
+      })
+    }
+  </script>
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=ここにAPIキーを入れる&callback=initMap" async defer></script>
+</body>
+
+</html>
