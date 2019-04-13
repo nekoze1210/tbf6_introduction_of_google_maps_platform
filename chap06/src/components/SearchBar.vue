@@ -1,7 +1,7 @@
 <template>
   <div>
     <input
-      id="search-box"
+      id="search-bar"
       class="controls"
       type="text"
       placeholder="キーワード検索"
@@ -21,7 +21,7 @@ export default {
   },
   mounted() {
     // 検索窓の設置
-    let searchBox = this.$el.querySelector("#search-box");
+    let searchBox = this.$el.querySelector("#search-bar");
     this.map.controls[this.google.maps.ControlPosition.TOP_CENTER].push(
       searchBox
     );
@@ -35,7 +35,7 @@ export default {
 </script>
 
 <style>
-#search-box {
+#search-bar {
   width: 80%;
   height: 40px;
   font-size: 16px;
